@@ -1,0 +1,9 @@
+image:
+  file: Dockerfile
+tasks:
+  - command: rvm install $RUBY_VERSION && rvm use $RUBY_VERSION --default && bundle install && yarn install && RAILS_ENV="test" rails db:setup && RAILS_ENV="development" rails db:setup && rails s
+
+ports:
+  - port: 5432
+  - port: 3000
+    onOpen: open-browser

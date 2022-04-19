@@ -75,4 +75,17 @@ Rails.application.configure do
   logger = ActiveSupport::Logger.new(STDOUT)
   logger.formatter = config.log_formatter
   config.logger    = ActiveSupport::TaggedLogging.new(logger)
+<<<<<<< HEAD
+<<<<<<< HEAD
+  
+  # Allow requests from the Gitpod subdomain
+  config.hosts.clear
+=======
+  config.hosts << "*.gitpod.io"
+>>>>>>> bc6df579 (allow requests from gitpod)
+=======
+  
+  # Allow requests from the Gitpod subdomain
+  config.hosts.clear
+>>>>>>> 0837103a (configure gitpod)
 end

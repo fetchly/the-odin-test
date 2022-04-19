@@ -48,6 +48,7 @@
     "stimulus-use": "^0.50.0-2",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat",
     "validate.js": "^0.13.1",
+    "webpack-merge": "^5.8.0",
     "yup": "^0.32.11"
   },
   "devDependencies": {
