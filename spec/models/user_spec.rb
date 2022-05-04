@@ -18,7 +18,7 @@ RSpec.describe User do
   it { is_expected.to belong_to(:path).optional(true) }
 
   context 'when user is created' do
-    let!(:default_path) { create(:path, default_path: true) }
+    let!(:default_path) { Path.default_path }
 
     it 'enrolls the user in the default path' do
       user = create(:user)
@@ -26,18 +26,7 @@ RSpec.describe User do
     end
   end
 
-  describe '#progress_for' do
-    let(:course) { build_stubbed(:course) }
-    let(:course_progress) { instance_double(CourseProgress) }
 
-    before do
-      allow(CourseProgress).to receive(:new).and_return(course_progress)
-    end
-
-    it 'returns the course progress service' do
-      expect(user.progress_for(course)).to eql(course_progress)
-    end
-  end
 
   describe '#completed?' do
     let(:lesson) { create(:lesson) }
@@ -111,6 +100,7 @@ RSpec.describe User do
     end
   end
 
+  # https://stackoverflow.com/questions/5629480/rails-devise-is-there-a-way-to-ban-a-user-so-they-cant-login-or-reset-their
   describe '#active_for_authentication?' do
     context 'when user has not been banned' do
       let(:user) { create(:user) }
@@ -153,6 +143,20 @@ RSpec.describe User do
 
     it 'returns flags the user has made that have been dismissed' do
       expect(user.dismissed_flags).to contain_exactly(dismissed_flag)
+    end
+  end
+
+  describe '#progress_for' do
+    let(:course) { build_stubbed(:course) }
+    let(:course_progress) { instance_double(CourseProgress) }
+
+    before do
+      allow(CourseProgress).to receive(:new).and_return(course_progress)
+    end
+
+    it 'returns the course progress service' do
+     #2540 byebug
+      expect(user.progress_for(course)).to eql(course_progress)
     end
   end
 
