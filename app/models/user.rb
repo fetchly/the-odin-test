@@ -19,8 +19,7 @@ class User < ApplicationRecord
   belongs_to :path, optional: true
 
   def progress_for(course)
-    @progress ||= Hash.new { |hash, c| hash[c] = CourseProgress.new(c, self) }
-    @progress[course]
+    CourseProgress.new(course, self)
   end
 
   def completed?(lesson)
@@ -42,7 +41,7 @@ class User < ApplicationRecord
   end
 
   def inactive_message
-    banned? ? :banned : super
+    banned? ? :banned : :inactive
   end
 
   def dismissed_flags
